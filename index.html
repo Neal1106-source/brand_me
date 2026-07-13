@@ -1,9 +1,9 @@
 <!-- 
 ==================================================
   Brand Me - Official Website Base Engine
-  Version: 3.5.0-Refined (iOS 智慧連動進度點點版)
+  Version: 3.7.0-Refined (高奢漸層融化淡出版)
   Last Updated: 2026-07-13
-  Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography + Scroll Snap Pagination
+  Architecture: Absolute Apple Navbar + Hero Linear Gradient Mask + Pure Editorial Body
 ==================================================
 -->
 <!DOCTYPE html>
@@ -11,14 +11,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Version: 3.5.0-Refined -->
+    <!-- Version: 3.7.0-Refined -->
     <title>Brand Me | 全方位個人升級孵化器</title>
     <style>
  /* ==================================================
       Brand Me - Official Website Base Engine
-      Version: 3.5.0-Refined
-      Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography
+      Version: 3.7.0-Refined
+      Architecture: Absolute Apple Navbar + Hero Linear Gradient Mask + Pure Editorial Body
     ================================================== */
+
+    :root {
+        /* 主頁 Hero 區塊的情境底圖路徑，未來換圖改這裡即可 */
+        --hero-background-image: url('base map.png'); 
+    }
 
     /* 全域時尚雜誌風基礎設定 */
     * {
@@ -33,7 +38,7 @@
         scroll-behavior: smooth;
     }
 
-    /* 全網頁一體成型流暢大漸層融合：改用更具質感的石墨深灰 */
+    /* 全網頁一體成型流暢大漸層融合 */
     body {
         background: radial-gradient(circle at 80% 15%, rgba(240,240,240,0.5) 0%, #fdfdfd 70%);
         color: #2c2c2e; 
@@ -227,23 +232,56 @@
     .menu-toggle.open span:nth-child(2) { opacity: 0; }
     .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) scaleX(1.1); background-color: #ffffff; }
 
-    /* 特點二 & 三：加大 Hero 呼吸留白與劇烈字體級差 */
+    /* ==================================================
+      🌟 核心優化：Hero 區塊導入高奢雙層濾鏡與底部蒸發遮罩
+    ================================================== */
     .hero {
-        padding: 18rem 2rem 12rem 2rem; 
+        padding: 22rem 2rem 18rem 2rem; /* 稍微放大天地內距，給予漸層完美的融化延伸空間 */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         position: relative;
-        background: transparent; 
+        
+        background-image: var(--hero-background-image);
+        background-repeat: no-repeat;
+        background-size: cover;       
+        background-position: center;   
+    }
+
+    /* 💡 雙層複合濾鏡：上半部白紗控光＋下半部全自動絲滑消融（強迫症救星） */
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* 
+           從頂部 0% 到中段 60%，維持 45% 的高雅純白半透白紗保護字體；
+           從 60% 開始到最底部 100%，由白紗完美、漸進地過渡到網頁的 100% 實色背景底色。
+        */
+        background: linear-gradient(to bottom, 
+            rgba(253, 253, 253, 0.45) 0%, 
+            rgba(253, 253, 253, 0.45) 60%, 
+            #fdfdfd 100%
+        );
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* 確保所有文字與內容排版階層在融化漸層之上 */
+    .hero-subtitle, .hero-title, .hero-description {
+        position: relative;
+        z-index: 2;
     }
 
     .hero-subtitle {
         font-size: 0.75rem;
         letter-spacing: 8px; 
         text-transform: uppercase;
-        color: #a1a1a6;
+        color: #48484a; 
         font-weight: 600;
         margin-bottom: 2rem;
     }
@@ -261,15 +299,16 @@
 
     .hero-description {
         font-size: 0.95rem; 
-        color: #636366;
+        color: #2c2c2e; 
         max-width: 600px;
         line-height: 2; 
         letter-spacing: 0.5px;
+        font-weight: 500;
     }
 
-    /* 最新消息區塊 */
+    /* 最新消息區塊（完全流暢銜接，背景乾淨不突兀） */
     .news-section {
-        padding: 10rem 4rem 4rem 4rem; 
+        padding: 8rem 4rem 4rem 4rem; /* 微微收攏頂部 Padding，對齊消融後的視覺舒適感 */
         max-width: 1200px;
         margin: 0 auto;
         background: transparent;
@@ -292,7 +331,6 @@
         flex-direction: column;
     }
 
-    /* 特點四：優化轉場，加入高級阻尼感 */
     .news-item {
         display: flex;
         align-items: flex-start;
@@ -460,7 +498,6 @@
         transform: scale(1.08);
     }
 
-    /* 🌟 電腦端隱藏手機專用分頁點點點 */
     .slider-pagination-dots {
         display: none;
     }
@@ -693,9 +730,7 @@
         .modal-left-panel, .modal-right-panel { padding: 2.5rem; }
     }
 
-    /* ==================================================
-      📱 手機版 (Mobile-First) 高奢質感精準重隔斷點 
-    ================================================== */
+    /* 手機版 (Mobile-First) 高奢質感精準重隔斷點 */
     @media (max-width: 768px) {
         nav { padding: 1.5rem 0; }
         .nav-container { padding: 0 1.5rem; }
@@ -703,11 +738,24 @@
         .menu-toggle { display: flex; }
         .logo img { height: 42px; } 
         
-        .hero { padding-top: 11rem; padding-bottom: 5rem; min-height: auto; }
+        /* 手機端同步套用底部霧化消融 */
+        .hero { 
+            padding-top: 13rem; 
+            padding-bottom: 8rem; 
+            min-height: auto; 
+        }
+        .hero::before {
+            background: linear-gradient(to bottom, 
+                rgba(253, 253, 253, 0.45) 0%, 
+                rgba(253, 253, 253, 0.45) 55%, 
+                #fdfdfd 100__ 
+            );
+        }
         .hero-title { font-size: 2.3rem; line-height: 1.4; letter-spacing: 0px; }
-        .hero-description { font-size: 0.9rem; line-height: 1.8; color: #636366; }
+        .hero-description { font-size: 0.9rem; line-height: 1.8; color: #1c1c1e; }
         
-        .news-section { padding: 5rem 1.5rem 2rem 1.5rem; }
+        /* 微微微調最新消息頂部，確保在手機端的消融銜接同樣流暢絲滑 */
+        .news-section { padding: 4rem 1.5rem 2rem 1.5rem; }
         .news-container { border-top: none; gap: 1.2rem; } 
         .news-item { 
             flex-direction: column; 
@@ -723,11 +771,10 @@
         .news-date { width: auto; font-size: 0.8rem; font-weight: 600; }
         .news-item-title { font-size: 1.15rem; line-height: 1.4; }
 
-        /* 旗下品牌履帶區塊：手機端橫向拓寬 */
-        .grid-section { padding: 5rem 0rem 2rem 0rem; }
-        .section-header { padding: 0 1.5rem; margin-bottom: 2rem; }
+        .grid-section { padding: 5rem 0rem 3rem 0rem; }
+        .section-header { padding: 0 1.5rem; margin-bottom: 2.5rem; }
         
-        /* 🌟 核心修正：調整 Padding 與寬度限制，完美產生「右側微露」的 Peek-a-boo 導引效果 */
+        /* 手機橫向品牌履帶 */
         .brand-container-layout {
             display: flex;
             flex-direction: row; 
@@ -737,12 +784,11 @@
             width: 100%;
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
-            padding: 1rem 1.5rem 1.5rem 1.5rem; /* 微調底部留白 */
+            padding: 1rem 1.5rem 1.5rem 1.5rem; 
             scrollbar-width: none; 
         }
         .brand-container-layout::-webkit-scrollbar { display: none; }
 
-        /* 🌟 手機履帶單張卡片：調整寬度為 275px，確保能在 iPhone 螢幕右側微露下一個商標 */
         .brand-card {
             width: 100%;
             max-width: 275px; 
@@ -759,7 +805,6 @@
         .brand-card img { max-height: 100%; max-width: 100%; } 
         .brand-card::before { width: 180px; height: 180px; filter: blur(45px); opacity: 0.3; } 
 
-        /* 🌟 提案二加入：手機專屬進度分頁點點點容器 */
         .slider-pagination-dots {
             display: flex;
             justify-content: center;
@@ -770,20 +815,18 @@
             margin-bottom: 2rem;
         }
 
-        /* 單個克制、極簡的進度點點 */
         .dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.1); /* 未選中時淡灰色 */
+            background-color: rgba(0, 0, 0, 0.1); 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 當前聚焦亮起的點點 */
         .dot.dot-active {
-            width: 16px; /* 溫潤拉長 */
+            width: 16px; 
             border-radius: 4px;
-            background-color: #1c1c1e; /* 高端石墨深灰 */
+            background-color: #1c1c1e; 
         }
 
         .footer-container { 
@@ -961,7 +1004,7 @@
         </div>
     </div>
 
-    <!-- Hero 主視覺區塊 -->
+    <!-- 🌟 Hero 主視覺區塊（底部完美融合蒸發） -->
     <section class="hero">
         <p class="hero-subtitle">The Multi-Me Ecosystem</p>
         <h1 class="hero-title">全方位成就更好的自己<br>打造專專屬於你的影響力藍圖</h1>
@@ -1006,22 +1049,19 @@
         </div>
     </section>
 
-    <!-- 旗下子品牌區塊（智慧 Pagination 連動履帶版） -->
+    <!-- 旗下子品牌區塊 -->
     <section class="grid-section" id="brands">
         <div class="section-header">
             <h2>旗下核心子品牌</h2>
         </div>
-        
-        <!-- 核心滾動視窗 -->
         <div class="brand-container-layout" id="brandSlider">
             <a href="beyond-me.html" class="brand-card card-beyond"><img src="logo-beyond.png" alt="複利職人所 Beyond me"></a>
             <a href="eclore-lab.html" class="brand-card card-eclore"><img src="logo-eclore.png" alt="Éclore Lab"></a>
             <a href="light-me.html" class="brand-card card-light"><img src="logo-light.png" alt="Light Me"></a>
             <a href="imatters.html" class="brand-card card-imatters"><img src="logo-imatters.png" alt="iMatters 職引力"></a>
-            <a href="wavemaker.html" class="brand-card card-wave"><img src="logo-wave.png" alt="Wavemaker 職場造浪者"></a>
+            <a href="world-me.html" class="brand-card card-wave"><img src="logo-wave.png" alt="Wavemaker 職場造浪者"></a>
         </div>
 
-        <!-- 🌟 手機專屬：5 大核心品牌 iOS 進度指示小圓點 -->
         <div class="slider-pagination-dots">
             <div class="dot dot-active"></div>
             <div class="dot"></div>
@@ -1115,10 +1155,8 @@
             const targetSection = document.querySelector('.brand-container-layout');
             if (targetSection) { logoObserver.observe(targetSection); }
 
-            // ==================================================
-            // 🌟 核心：手機版品牌履帶左右滑動 ─ 智慧亮燈點點監聽器
-            // ==================================================
-	    const brandSlider = document.getElementById('brandSlider');
+            // 手機版品牌履帶左右滑動 ─ 智慧亮燈點點監聽器
+            const brandSlider = document.getElementById('brandSlider');
             const dots = document.querySelectorAll('.dot');
 
             if (brandSlider && dots.length > 0) {
@@ -1126,25 +1164,20 @@
                     if (window.innerWidth <= 768) {
                         const scrollLeft = brandSlider.scrollLeft;
                         const clientWidth = brandSlider.clientWidth;
-                        const scrollWidth = brandSlider.scrollWidth;
+                        const scrollWidth = brandSlider.width || brandSlider.scrollWidth;
                         
                         let activeIndex = 0;
 
-                        // 🔍 強迫症救星判斷 1：如果已經滑到最右側邊界（容許 5px 誤差值）
                         if (scrollLeft + clientWidth >= scrollWidth - 5) {
-                            activeIndex = dots.length - 1; // 強制設定為最後一個點點
+                            activeIndex = dots.length - 1; 
                         } else {
-                            // 🔍 判斷 2：平時滑動時，使用精準的卡片寬度比例計算
-                            // 275px 卡片寬度 + 19.2px (1.2rem gap) = 294.2px 總間距步長
                             const itemStep = 275 + (1.2 * 16); 
                             activeIndex = Math.round(scrollLeft / itemStep);
                         }
                         
-                        // 安全邊界防禦限縮
                         if (activeIndex < 0) activeIndex = 0;
                         if (activeIndex >= dots.length) activeIndex = dots.length - 1;
                         
-                        // 絲滑切換點點樣式
                         dots.forEach((dot, idx) => {
                             if (idx === activeIndex) {
                                 dot.classList.add('dot-active');
