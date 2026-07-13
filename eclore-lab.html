@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技美妝與肌膚健康生理美學 - Brand Me 生態圈</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Helvetica Neue", Arial, "Noto Sans TC", sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: radial-gradient(circle at 20% 20%, rgba(254, 245, 242, 0.8) 0%, #fdfdfb 60%, rgba(212, 163, 149, 0.3) 100%); color: #1a1a1a; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; display: flex; justify-content: center; padding: 2.5rem 0; }
+        .nav-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 4rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo-back a { text-decoration: none; color: #1a1a1a; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; transition: opacity 0.3s ease; }
+        .logo-back a:hover { opacity: 0.6; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: #1a1a1a; font-size: 0.9rem; letter-spacing: 1px; font-weight: 500; transition: opacity 0.3s ease; }
+        .nav-links a:hover { opacity: 0.6; }
+        .nav-btn { background: #1a1a1a; color: #ffffff !important; padding: 0.6rem 1.2rem; border-radius: 20px; font-size: 0.85rem !important; transition: background-color 0.3s !important; }
+        .nav-btn:hover { background: #333333; }
+        .hero { padding: 14rem 4rem 6rem 4rem; max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 4rem; }
+        .hero-info { flex: 1.2; }
+        .hero-tag { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: #1a1a1a; font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        .hero-title { font-size: 3.5rem; font-weight: 700; letter-spacing: -1px; line-height: 1.3; margin-bottom: 2rem; color: #1a1a1a; }
+        .hero-description { font-size: 1.1rem; color: #555; line-height: 1.9; margin-bottom: 2.5rem; }
+        .hero-visual { flex: 0.8; display: flex; justify-content: center; align-items: center; position: relative; }
+        .metabolic-sphere { width: 320px; height: 320px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.02) 100%); filter: blur(20px); position: absolute; z-index: -1; animation: pulse 8s infinite alternate; }
+        .visual-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); padding: 2.5rem; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.03); text-align: center; width: 100%; max-width: 340px; }
+        .metric-num { font-size: 3.5rem; font-weight: 700; color: #1a1a1a; line-height: 1; margin-bottom: 0.5rem; }
+        .metric-label { font-size: 0.9rem; color: #8c8c8c; letter-spacing: 1px; }
+        .pillars-section { padding: 6rem 4rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+        .section-title { font-size: 2rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 4rem; text-align: left; }
+        .pillars-grid { display: flex; gap: 2.5rem; width: 100%; }
+        .pillar-card { flex: 1; background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(0,0,0,0.03); padding: 3rem 2.5rem; border-radius: 20px; transition: transform 0.3s, background-color 0.3s; }
+        .pillar-card:hover { transform: translateY(-5px); background: #ffffff; box-shadow: 0 15px 35px rgba(0,0,0,0.02); }
+        .pillar-icon { font-size: 1.8rem; margin-bottom: 1.5rem; display: block; }
+        .pillar-h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
+        .pillar-desc { font-size: 0.95rem; color: #666; line-height: 1.7; }
+        footer { margin-top: auto; width: 100%; display: flex; justify-content: center; padding: 4rem 0 3rem 0; background: transparent; }
+        .footer-container { width: 100%; max-width: 1200px; padding: 0 4rem; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-copyright { font-size: 0.75rem; color: #8c8c8c; }
+        @keyframes pulse { 0% { transform: scale(1) rotate(0deg); opacity: 0.6; } 100% { transform: scale(1.1) rotate(180deg); opacity: 0.9; } }
+        @media (max-width: 1024px) {
+            .hero { padding: 12rem 2rem 4rem 2rem; flex-direction: column; text-align: center; gap: 3rem; }
+            .nav-container, .pillars-section, .footer-container { padding: 0 2rem; }
+            .hero-title { font-size: 2.8rem; }
+            .pillars-grid { flex-direction: column; gap: 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 2.2rem; }
+            .nav-container, .pillars-section, .footer-container { padding: 0 1.5rem; }
+            .footer-container { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo-back"><a href="index.html"><span>←</span> Brand Me 生態母艦</a></div>
+            <ul class="nav-links">
+                <li><a href="#science">科學與核心</a></li>
+                <li><a href="index.html#brands">返回生態圈</a></li>
+                <li><a href="index.html" class="nav-btn">立即預約諮詢</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-info">
+            <span class="hero-tag">Biotech Skin & Aesthetics</span>
+            <h1 class="hero-title">Éclore Lab<br>由內而外的肌膚科學盛綻美學</h1>
+            <p class="hero-description">Éclore 取自法文「盛開」之意。我們拒絕繁複盲目的護膚偏方，結合現代生技醫療級抗發炎調控、微觀皮膚生理學，由 16 人專家團隊中的生技美妝顧問，為您提供專屬的膚質基因調教與高端外在形象管理，讓肌膚重回自發性的健康光澤。</p>
+        </div>
+        <div class="hero-visual">
+            <div class="metabolic-sphere"></div>
+            <div class="visual-card">
+                <div class="metric-num">14 Days</div>
+                <div class="metric-label">肌膚防禦屏障與抗發炎穩定週期</div>
+            </div>
+        </div>
+    </section>
+    <section class="pillars-section" id="science">
+        <h2 class="section-title">我們的三大核心範疇</h2>
+        <div class="pillars-grid">
+            <div class="pillar-card"><span class="pillar-icon">🧪</span><h3 class="pillar-h3"> 醫學級皮膚生理抗發炎</h3><p class="pillar-desc">針對現代職人的高壓氧化膚質，導入頂級 NMN、抗發炎胜肽與修護生技配方，從細胞底層阻斷暗沉與慢性發炎，重塑天然肌膚防禦屏障。</p></div>
+            <div class="pillar-card"><span class="pillar-icon">🎨</span><h3 class="pillar-h3"> 高階商務精緻彩妝定製</h3><p class="pillar-desc">根據個人骨骼美學與色彩心理學，由殿堂級彩妝顧問親自打磨，為您量身規劃乾淨、高雅、不著痕跡的「高奢自媒體 IP」招牌出鏡妝容。</p></div>
+            <div class="pillar-card"><span class="pillar-icon">🛒</span><h3 class="pillar-h3"> 高機能保養生技選品</h3><p class="pillar-desc">嚴格篩選符合純淨美妝（Clean Beauty）與高活性科研成分。拒絕有害添加，用最少且最精準的護膚步驟，為肌膚注入細胞級的蛻變能量。</p></div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-copyright">Copyright © 2026 Brand Me. 保留一切權利。 Biotech Skin & Aesthetics Sub-Engine</div>
+        </div>
+    </footer>
+</body>
+</html>

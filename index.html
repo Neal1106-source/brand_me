@@ -1,0 +1,1079 @@
+<!-- 
+==================================================
+  Brand Me - Official Website Base Engine
+  Version: 3.4.0-Refined (大器 Logo 物理放大與光暈優化版)
+  Last Updated: 2026-07-13
+  Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography + Expanded Logo Palette
+==================================================
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Version: 3.4.0-Refined -->
+    <title>Brand Me | 全方位個人升級孵化器</title>
+    <style>
+ /* ==================================================
+      Brand Me - Official Website Base Engine
+      Version: 3.4.0-Refined (大器 Logo 物理放大與光暈優化版)
+      Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography
+    ================================================== */
+
+    /* 全域時尚雜誌風基礎設定 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    }
+
+    /* 點擊錨點平滑捲動 */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* 全網頁一體成型流暢大漸層融合：改用更具質感的石墨深灰 */
+    body {
+        background: radial-gradient(circle at 80% 15%, rgba(240,240,240,0.5) 0%, #fdfdfd 70%);
+        color: #2c2c2e; 
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Apple 官網級固定置中導覽列 */
+    nav {
+        position: absolute; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        padding: 2.5rem 0;
+    }
+
+    /* 限制最大寬度外殼（黃金對齊線） */
+    .nav-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        z-index: 101;
+    }
+
+    .logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .logo img {
+        height: 76px;
+        width: auto;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+    }
+
+    /* 電腦版選單 */
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+        align-items: center;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #2c2c2e;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        font-weight: 500;
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links li:not(.social-li) a:hover {
+        opacity: 0.5;
+    }
+
+    /* 微擬真 iOS App 圖標容器 */
+    .app-icon-wrapper {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        vertical-align: middle;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); 
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    }
+
+    .app-icon-wrapper:hover {
+        transform: scale(1.1) translateY(-1px); 
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.18));
+    }
+
+    .app-icon-wrapper svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    /* 手機版極簡漢堡鈕 */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 16px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 101;
+    }
+
+    .menu-toggle span {
+        width: 100%;
+        height: 2px;
+        background-color: #2c2c2e;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: left center;
+    }
+
+    /* 全螢幕選單浮層 */
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(15, 15, 15, 0.96); 
+        backdrop-filter: blur(10px); 
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .mobile-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .mobile-menu {
+        list-style: none;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem; 
+    }
+
+    .mobile-menu a {
+        text-decoration: none;
+        color: #ffffff; 
+        font-size: 1.5rem; 
+        letter-spacing: 2px;
+        font-weight: 400;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .mobile-overlay.active .mobile-menu a {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+    .mobile-overlay.active .mobile-menu li:nth-child(1) a { transition-delay: 0.1s; }
+    .mobile-overlay.active .mobile-menu li:nth-child(2) a { transition-delay: 0.15s; }
+    .mobile-overlay.active .mobile-menu li:nth-child(3) a { transition-delay: 0.2s; }
+    .mobile-overlay.active .mobile-menu li:nth-child(4) a { transition-delay: 0.25s; }
+    .mobile-overlay.active .mobile-menu li:nth-child(5) a { transition-delay: 0.3s; }
+
+    .mobile-menu a:hover {
+        opacity: 1;
+        color: #dfba6b; 
+    }
+
+    .mobile-social-row {
+        display: flex;
+        gap: 2rem; 
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    .mobile-social-row .app-icon-wrapper {
+        width: 36px; 
+        height: 36px;
+    }
+
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) scaleX(1.1); background-color: #ffffff; }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) scaleX(1.1); background-color: #ffffff; }
+
+    /* 特點二 & 三：加大 Hero 呼吸留白與劇烈字體級差 */
+    .hero {
+        padding: 18rem 2rem 12rem 2rem; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        background: transparent; 
+    }
+
+    .hero-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 8px; /* 大幅拉開字距 */
+        text-transform: uppercase;
+        color: #a1a1a6;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+
+    .hero-title {
+        font-size: 4.8rem; /* 放大標題 */
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 1.25;
+        margin-bottom: 2.5rem;
+        max-width: 1000px;
+        color: #1c1c1e;
+        /* 引入高端雜誌襯線體 */
+        font-family: "Times New Roman", "Songti TC", "Noto Serif TC", serif;
+    }
+
+    .hero-description {
+        font-size: 0.95rem; /* 縮小內文，形成強烈對比 */
+        color: #636366;
+        max-width: 600px;
+        line-height: 2; /* 充滿空氣感的行高 */
+        letter-spacing: 0.5px;
+    }
+
+    /* 最新消息區塊 */
+    .news-section {
+        padding: 10rem 4rem 4rem 4rem; /* 增加天地留白 */
+        max-width: 1200px;
+        margin: 0 auto;
+        background: transparent;
+        scroll-margin-top: 4rem; 
+    }
+
+    .news-header h2 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: #1c1c1e;
+        margin-bottom: 3.5rem;
+        font-family: "Times New Roman", "Songti TC", "Noto Serif TC", serif;
+    }
+
+    .news-container {
+        width: 100%;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 特點四：優化轉場，加入高級阻尼感 */
+    .news-item {
+        display: flex;
+        align-items: flex-start;
+        text-decoration: none;
+        color: #2c2c2e;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+        padding: 2.5rem 0; 
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .news-item:hover {
+        padding-left: 1.5rem; 
+        background-color: rgba(0,0,0,0.015);
+    }
+
+    .news-date {
+        font-size: 0.8rem;
+        color: #a1a1a6;
+        letter-spacing: 1.5px;
+        width: 150px;
+        flex-shrink: 0;
+        font-weight: 600;
+    }
+
+    .news-content {
+        flex-grow: 1;
+    }
+
+    /* 特點一：收斂色彩，統一改為洗鍊中性色 */
+    .news-tag {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+        display: inline-block;
+        border: 1px solid #e5e5ea;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #8e8e93 !important; 
+    }
+
+    .news-item-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 0.6rem;
+        color: #1c1c1e;
+    }
+
+    .news-item-desc {
+        font-size: 0.95rem;
+        color: #636366;
+        line-height: 1.7;
+    }
+
+    .news-more-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start; 
+        padding-top: 2.5rem;
+    }
+
+    .news-more-btn {
+        text-decoration: none;
+        color: #1c1c1e;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .news-more-btn:hover {
+        gap: 0.9rem; 
+        color: #dfba6b;
+    }
+
+    /* 旗下子品牌純 Logo 區塊 */
+    .grid-section {
+        padding: 10rem 4rem 6rem 4rem; /* 增加天地留白 */
+        max-width: 1200px;
+        margin: 0 auto;
+        background: transparent;
+        scroll-margin-top: 4rem;
+    }
+
+    .section-header {
+        margin-bottom: 5rem;
+        text-align: left;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: #1c1c1e;
+        font-family: "Times New Roman", "Songti TC", "Noto Serif TC", serif;
+    }
+
+    .brand-container-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem; /* 增加間距配合放大後的尺寸 */
+        width: 100%;
+    }
+
+    /* 🌟 融合提案一：放大卡片物理尺寸（從 240x180 升級至 300x200） */
+    .brand-card {
+        flex: 1;
+        max-width: 300px; 
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        position: relative;
+        cursor: pointer;
+        z-index: 1;
+        opacity: 0;
+        transform: translateX(-30px); 
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-card.animate-fade-in {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .card-beyond   { --glow-color: rgba(222, 217, 210, 0.5); }  
+    .card-imatters { --glow-color: rgba(223, 186, 107, 0.4); }  
+    .card-eclore   { --glow-color: rgba(212, 163, 149, 0.45); } 
+    .card-light    { --glow-color: rgba(184, 203, 54, 0.35); }  
+    .card-wave     { --glow-color: rgba(0, 77, 124, 0.3); }   
+
+    /* 🌟 融合提案三：同步擴大後台電影感光暈範疇，不被大 Logo 遮擋 */
+    .brand-card::before {
+        content: '';
+        position: absolute;
+        width: 220px;       /* 從 160px 擴大至 220px */
+        height: 220px;      /* 從 160px 擴大至 220px */
+        border-radius: 50%;
+        background: var(--glow-color);
+        filter: blur(55px); /* 從 45px 調至 55px，發光邊緣更溫潤迷濛 */
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-card:hover::before {
+        opacity: 1;
+    }
+
+    /* 🌟 融合提案一：解鎖 95% 限制，讓去背圖片 100% 飽滿展現 */
+    .brand-card img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        mix-blend-mode: multiply;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    }
+
+    .brand-card:hover img {
+        filter: opacity(1) brightness(1.03);
+        transform: scale(1.08);
+    }
+
+    /* 彈出式商務諮詢表單 */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3); 
+        backdrop-filter: blur(12px); 
+        z-index: 250; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.modal-active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-window {
+        background: #ffffff;
+        width: 100%;
+        max-width: 900px;
+        border-radius: 24px; 
+        box-shadow: 0 30px 70px rgba(0,0,0,0.12);
+        display: flex; 
+        position: relative;
+        overflow: hidden;
+        max-height: 90vh; 
+        transform: scale(0.96) translateY(15px);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.modal-active .modal-window {
+        transform: scale(1) translateY(0);
+    }
+
+    .modal-close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: rgba(0, 0, 0, 0.04);
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        color: #666;
+        transition: all 0.3s;
+        z-index: 10;
+    }
+    .modal-close-btn:hover {
+        background: rgba(0, 0, 0, 0.08);
+        color: #1c1c1e;
+    }
+
+    .modal-left-panel {
+        flex: 1.1;
+        background: #1c1c1e; 
+        color: #ffffff;
+        padding: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .modal-left-panel h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        font-family: "Times New Roman", "Songti TC", "Noto Serif TC", serif;
+    }
+    .modal-left-panel p {
+        font-size: 0.95rem;
+        color: #a1a1a6;
+        line-height: 1.8;
+    }
+
+    .modal-info-footer {
+        margin-top: 3rem;
+        font-size: 0.85rem;
+        color: #8e8e93;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .modal-info-footer a {
+        color: #dfba6b;
+        text-decoration: none;
+        transition: opacity 0.3s;
+    }
+    .modal-info-footer a:hover { opacity: 0.8; }
+
+    .modal-right-panel {
+        flex: 1.3;
+        padding: 3.5rem;
+        overflow-y: auto; 
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+        color: #48484a;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        border: 1px solid rgba(0,0,0,0.06);
+        background: #f5f5f7;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        color: #1c1c1e;
+        outline: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        border-color: #1c1c1e;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.02);
+    }
+
+    .form-submit-btn {
+        width: 100%;
+        background: #1c1c1e;
+        color: #ffffff;
+        border: none;
+        padding: 1rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        margin-top: 0.5rem;
+    }
+    .form-submit-btn:hover {
+        background: #dfba6b;
+        color: #1c1c1e;
+        box-shadow: 0 8px 24px rgba(223, 186, 107, 0.25);
+    }
+    .form-submit-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* 頁尾法律聲明 */
+    footer {
+        margin-top: auto; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 4rem 0 3rem 0; 
+        background: transparent;
+    }
+
+    .footer-container {
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 4rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.05); 
+        padding-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .footer-copyright {
+        font-size: 0.75rem; 
+        color: #8e8e93;
+        letter-spacing: 0.5px;
+        line-height: 1.5;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        text-decoration: none;
+        color: #8e8e93;
+        font-size: 0.75rem;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #1c1c1e; 
+    }
+
+    .footer-links li:not(:last-child)::after {
+        content: '｜';
+        color: rgba(0, 0, 0, 0.05);
+        margin-left: 1rem;
+        font-size: 0.7rem;
+        pointer-events: none;
+    }
+
+    /* 平板 RWD 斷點 */
+    @media (max-width: 1024px) {
+        .nav-container { padding: 0 2rem; }
+        .hero-title { font-size: 3.2rem; }
+        .brand-container-layout { gap: 1rem; }
+        .brand-card { height: 160px; } /* 平板等比例調整 */
+        .footer-container { padding: 0 2rem; }
+        .modal-left-panel, .modal-right-panel { padding: 2.5rem; }
+    }
+
+    /* 手機版 (Mobile-First) 高奢質感精準重隔斷點 */
+    @media (max-width: 768px) {
+        nav { padding: 1.5rem 0; }
+        .nav-container { padding: 0 1.5rem; }
+        .nav-links { display: none; }
+        .menu-toggle { display: flex; }
+        .logo img { height: 42px; } 
+        
+        .hero { padding-top: 11rem; padding-bottom: 5rem; min-height: auto; }
+        .hero-title { font-size: 2.3rem; line-height: 1.4; letter-spacing: 0px; }
+        .hero-description { font-size: 0.9rem; line-height: 1.8; color: #636366; }
+        
+        .news-section { padding: 5rem 1.5rem 2rem 1.5rem; }
+        .news-container { border-top: none; gap: 1.2rem; } 
+        .news-item { 
+            flex-direction: column; 
+            gap: 0.6rem; 
+            padding: 1.8rem; 
+            background: rgba(255, 255, 255, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.7); 
+            border-radius: 18px; 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.01);
+            backdrop-filter: blur(5px);
+        }
+        .news-item:hover { padding-left: 1.8rem; transform: none; background: rgba(255, 255, 255, 0.65); }
+        .news-date { width: auto; font-size: 0.8rem; font-weight: 600; }
+        .news-item-title { font-size: 1.15rem; line-height: 1.4; }
+
+        .grid-section { padding: 5rem 0rem 3rem 0rem; }
+        .section-header { padding: 0 1.5rem; margin-bottom: 2.5rem; }
+        
+        /* 手機橫向履帶 */
+        .brand-container-layout {
+            display: flex;
+            flex-direction: row; 
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            padding: 1rem 1.5rem 2.5rem 1.5rem; 
+            scrollbar-width: none; 
+        }
+        .brand-container-layout::-webkit-scrollbar { display: none; }
+
+        /* 🌟 融合提案一：手機履帶同步放大（寬度鎖定 290px、高度 160px，極致吸睛） */
+        .brand-card {
+            width: 100%;
+            max-width: 290px; 
+            flex: 0 0 290px; 
+            height: 160px; 
+            background: transparent; /* 保持俐落去背融入背景 */
+            border-radius: 0px;
+            box-shadow: none;
+            border: none;
+            scroll-snap-align: center; 
+            opacity: 1 !important; 
+            transform: none !important;
+        }
+        .brand-card img { max-height: 100%; max-width: 100%; } 
+        .brand-card::before { width: 180px; height: 180px; filter: blur(45px); opacity: 0.3; } 
+
+        .footer-container { 
+            padding: 0 1.5rem; 
+            flex-direction: column; 
+            align-items: flex-start;
+            gap: 1.2rem;
+        }
+        .footer-links { gap: 0.8rem; }
+        .footer-links li:not(:last-child)::after { margin-left: 0.8rem; }
+
+        .modal-overlay { padding: 0.8rem; }
+        .modal-window { flex-direction: column; max-height: 95vh; border-radius: 20px; }
+        .modal-left-panel { padding: 2.5rem 1.5rem 1.5rem 1.5rem; flex: none; }
+        .modal-left-panel h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .modal-left-panel p { font-size: 0.85rem; }
+        .modal-info-footer { display: none; } 
+        .modal-right-panel { padding: 1.5rem; }
+    }
+    </style>
+</head>
+<body>
+
+    <!-- Apple 官網風格導覽列 (純 Absolute 俐落版) -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="brandme-logo.png" alt="Brand Me Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">關於我們</a></li>
+                <li><a href="#news">最新消息</a></li>
+                <li><a href="#brands">旗下品牌</a></li>
+                <li><a href="javascript:void(0);" class="trigger-contact">聯絡我們</a></li>
+                
+                <li class="social-li">
+                    <a href="https://www.instagram.com/brand_me86?igsh=enpta3htY3FoanFo&utm_source=qr" target="_blank" aria-label="Instagram">
+                        <div class="app-icon-wrapper">
+                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="ig-grad" cx="20%" cy="90%" r="95%">
+                                        <stop offset="0%" stop-color="#f9ed32"/>
+                                        <stop offset="25%" stop-color="#ee2a7b"/>
+                                        <stop offset="60%" stop-color="#d82b7d"/>
+                                        <stop offset="100%" stop-color="#002aff"/>
+                                    </radialGradient>
+                                    <linearGradient id="gloss-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="512" height="512" rx="115" fill="url(#ig-grad)"/>
+                                <rect x="116" y="116" width="280" height="280" rx="72" fill="none" stroke="#ffffff" stroke-width="26"/>
+                                <circle cx="256" cy="256" r="66" fill="none" stroke="#ffffff" stroke-width="26"/>
+                                <circle cx="346" cy="166" r="20" fill="#ffffff"/>
+                                <path d="M 0,115 C 0,51 51,0 115,0 L 397,0 C 461,0 512,51 512,115 L 512,200 C 350,230 150,180 0,200 Z" fill="url(#gloss-grad)"/>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+                
+                <li class="social-li">
+                    <a href="https://www.facebook.com/share/1DGkx5ZFpv/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+                        <div class="app-icon-wrapper">
+                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="fb-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#4c8cff"/>
+                                        <stop offset="100%" stop-color="#185ad7"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="512" height="512" rx="115" fill="url(#fb-grad)"/>
+                                <path d="M355.7 512V313.3h66.7l10-77.5h-76.7v-49.4c0-22.4 6.2-37.7 38.4-37.7h41.1V79.3c-7.1-.9-31.6-3.1-60.1-3.1-59.5 0-100.2 36.3-100.2 103v57.5h-67v77.5h67V512h101.8z" fill="#ffffff"/>
+                                <path d="M 0,115 C 0,51 51,0 115,0 L 397,0 C 461,0 512,51 512,115 L 512,200 C 350,230 150,180 0,200 Z" fill="url(#gloss-grad)"/>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="打開選單">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 手機專屬全螢幕選單 -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <ul class="mobile-menu">
+            <li><a href="#" class="menu-link">關於我們</a></li>
+            <li><a href="#news" class="menu-link">最新消息</a></li>
+            <li><a href="#brands" class="menu-link">旗下品牌</a></li>
+            <li><a href="javascript:void(0);" class="menu-link trigger-contact">聯絡我們</a></li>
+            <li class="mobile-social-row">
+                <a href="https://www.instagram.com/brand_me86?igsh=enpta3htY3FoanFo&utm_source=qr" target="_blank" aria-label="Instagram">
+                    <div class="app-icon-wrapper">
+                        <svg viewBox="0 0 512 512">
+                            <rect width="512" height="512" rx="115" fill="url(#ig-grad)"/>
+                            <rect x="116" y="116" width="280" height="280" rx="72" fill="none" stroke="#ffffff" stroke-width="26"/>
+                            <circle cx="256" cy="256" r="66" fill="none" stroke="#ffffff" stroke-width="26"/>
+                            <circle cx="346" cy="166" r="20" fill="#ffffff"/>
+                            <path d="M 0,115 C 0,51 51,0 115,0 L 397,0 C 461,0 512,51 512,115 L 512,200 C 350,230 150,180 0,200 Z" fill="url(#gloss-grad)"/>
+                        </svg>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/share/1DGkx5ZFpv/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+                    <div class="app-icon-wrapper">
+                        <svg viewBox="0 0 512 512">
+                            <rect width="512" height="512" rx="115" fill="url(#fb-grad)"/>
+                            <path d="M355.7 512V313.3h66.7l10-77.5h-76.7v-49.4c0-22.4 6.2-37.7 38.4-37.7h41.1V79.3c-7.1-.9-31.6-3.1-60.1-3.1-59.5 0-100.2 36.3-100.2 103v57.5h-67v77.5h67V512h101.8z" fill="#ffffff"/>
+                            <path d="M 0,115 C 0,51 51,0 115,0 L 397,0 C 461,0 512,51 512,115 L 512,200 C 350,230 150,180 0,200 Z" fill="url(#gloss-grad)"/>
+                        </svg>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 彈出式表單視窗 -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-window">
+            <button class="modal-close-btn" id="closeModalBtn" aria-label="關閉視窗">✕</button>
+            <div class="modal-left-panel">
+                <div>
+                    <h3>與我們聯絡<br>開啟專屬你的蛻變之旅</h3>
+                    <p>無論是內在心智疊加、體態精雕管理，還是個人社群品牌 IP 的跨界造浪。填寫右側表單，Brand Me 16 人專家團隊將在第一時間為您進行後台智慧分流與對接諮詢。</p>
+                </div>
+                <div class="modal-info-footer">
+                    <span>官方商務信箱：service@brandme.com</span>
+                    <span>服務時間：週一至週五 09:00 - 18:00</span>
+                    <span>即時對接：<a href="#">點擊加入官方 LINE ➔</a></span>
+                </div>
+            </div>
+            <div class="modal-right-panel">
+                <form id="businessContactForm" onsubmit="event.preventDefault(); alert('感謝您的諮詢！Brand Me 團隊專家將於 24 小時內與您聯繫。'); document.getElementById('contactModal').classList.remove('modal-active'); document.body.style.overflow = 'auto';">
+                    <div class="form-group">
+                        <label for="clientName">您的姓名 / 稱呼 *</label>
+                        <input type="text" id="clientName" required placeholder="例如：林先生 / 珍妮">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">電子郵件 Email *</label>
+                        <input type="email" id="clientEmail" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhone">聯絡電話（選填）</label>
+                        <input type="tel" id="clientPhone" placeholder="0912-345678">
+                    </div>
+                    <div class="form-group">
+                        <label for="businessBranch">預約諮詢核心項目 *</label>
+                        <select id="businessBranch" required>
+                            <option value="" disabled selected>請選擇您想對接的專家領域...</option>
+                            <option value="beyond">複利職人所 Beyond me</option>
+                            <option value="eclore">Éclore Lab 彩妝形象生技</option>
+                            <option value="light">Light Me 體態與代謝管理</option>
+                            <option value="imatters">iMatters 職引力形象管理</option>
+                            <option value="wavemaker">Wavemaker 職場影響力造浪</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientSocial">您的 Instagram / Threads 帳號（選填）</label>
+                        <input type="text" id="clientSocial" placeholder="@brand_me86">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientMessage">簡單描述您當前的盲點或合作想法 *</label>
+                        <textarea id="clientMessage" rows="4" required placeholder="請簡單告訴我們您的現況..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit-btn">提交諮詢申請</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero 主視覺區塊 -->
+    <section class="hero">
+        <p class="hero-subtitle">The Multi-Me Ecosystem</p>
+        <h1 class="hero-title">全方位成就更好的自己<br>打造專專屬於你的影響力藍圖</h1>
+        <p class="hero-description">
+            「Brand Me」是引領個人蛻變的質感殿堂。從內在思維、體態管理、外在形象到職場影響力，我們為你串聯 5 大核心領域，陪伴你完成從素人到頂尖職人的全面進化。
+        </p>
+    </section>
+
+    <!-- 最新消息專屬區塊（手機版自動啟動 iOS 薄霧微透卡片） -->
+    <section class="news-section" id="news">
+        <div class="news-header">
+            <h2>最新消息</h2>
+        </div>
+        <div class="news-container">
+            <a href="#" class="news-item">
+                <div class="news-date">2026.07.09</div>
+                <div class="news-content">
+                    <span class="news-tag tag-official">Official Launch</span>
+                    <h3 class="news-item-title">「Brand Me」全方位個人升級孵化器，今日起正式向全球發佈</h3>
+                    <p class="news-item-desc">籌備已久的個人 IP 品牌生態圈今日全面啟航！我們集結 16 位橫跨體態管理、彩妝形象、職場影響力等各領域的頂尖顧問，為全球追求卓越的職人提供一體化、最高規格的客製蛻變藍圖。</p>
+                </div>
+            </a>
+            <a href="#" class="news-item">
+                <div class="news-date">2026.07.07</div>
+                <div class="news-content">
+                    <span class="news-tag tag-rehearsal">Internal Event</span>
+                    <h3 class="news-item-title">生態圈母艦全面大預演：16 位領域專家團隊完成最終對齊測試</h3>
+                    <p class="news-item-desc">為迎接品牌正式發佈，核心團隊於今日完成最後階段的封閉式預演與壓力測試。旗下 5 大 core 子品牌之跳轉與協作模組運作極致流暢。</p>
+                </div>
+            </a>
+            <a href="#" class="news-item">
+                <div class="news-date">2026.07.03</div>
+                <div class="news-content">
+                    <span class="news-tag tag-launch">Ecosystem Info</span>
+                    <h3 class="news-item-title">Brand Me 官方核心母艦網站 2.9 版本正式上線</h3>
+                    <p class="news-item-desc">凝聚數位 IP 與高奢極簡雜蹟風格的首頁系統今日率先上線部署。本平台內建 Apple 官網級固定置中防飄移導覽列，並結合高階智慧滾動監聽技術。</p>
+                </div>
+            </a>
+        </div>
+        <div class="news-more-wrapper">
+            <a href="#" class="news-more-btn">查看更多消息 <span>➔</span></a>
+        </div>
+    </section>
+
+    <!-- 旗下子品牌區塊（大 Logo 物理放大 + 3D 智慧磁吸流暢履帶） -->
+    <section class="grid-section" id="brands">
+        <div class="section-header">
+            <h2>旗下核心子品牌</h2>
+        </div>
+        <div class="brand-container-layout">
+            <a href="beyond-me.html" class="brand-card card-beyond"><img src="logo-beyond.png" alt="複利職人所 Beyond me"></a>
+            <a href="eclore-lab.html" class="brand-card card-eclore"><img src="logo-eclore.png" alt="Éclore Lab"></a>
+            <a href="light-me.html" class="brand-card card-light"><img src="logo-light.png" alt="Light Me"></a>
+            <a href="imatters.html" class="brand-card card-imatters"><img src="logo-imatters.png" alt="iMatters 職引力"></a>
+            <a href="wavemaker.html" class="brand-card card-wave"><img src="logo-wave.png" alt="Wavemaker 職場造浪者"></a>
+        </div>
+    </section>
+
+    <!-- 頁尾法律版權專區 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-copyright">Copyright © 2026 Brand Me. 保留一切權利。</div>
+            <ul class="footer-links">
+                <li><a href="#">隱私權政策</a></li>
+                <li><a href="#">使用條款</a></li>
+                <li><a href="#">法律聲明</a></li>
+                <li><a href="#" style="font-weight: 500; color: #555;">台灣</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- 智慧控制器 JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 漢堡選單開關邏輯
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const menuLinks = document.querySelectorAll('.menu-link:not(.trigger-contact)');
+
+            function toggleMenu() {
+                menuToggle.classList.toggle('open');
+                mobileOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileOverlay.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // 彈出式表單智慧控制器
+            const contactModal = document.getElementById('contactModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const triggerBtns = document.querySelectorAll('.trigger-contact');
+
+            function openModal() {
+                if (mobileOverlay.classList.contains('active')) {
+                    menuToggle.classList.remove('open');
+                    mobileOverlay.classList.remove('active');
+                }
+                contactModal.classList.add('modal-active');
+                document.body.style.overflow = 'hidden'; 
+            }
+
+            function closeModal() {
+                contactModal.classList.remove('modal-active');
+                document.body.style.overflow = 'auto'; 
+            }
+
+            triggerBtns.forEach(btn => {
+                btn.addEventListener('click', openModal);
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // 智慧滾動監聽（Logo 依序淡入 - 電腦端啟動）
+            const brandCards = document.querySelectorAll('.brand-card');
+            const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
+
+            const logoObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (window.innerWidth > 768) {
+                            brandCards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('animate-fade-in');
+                                }, index * 150);
+                            });
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const targetSection = document.querySelector('.brand-container-layout');
+            if (targetSection) { logoObserver.observe(targetSection); }
+        });
+    </script>
+</body>
+</html>
