@@ -1118,23 +1118,33 @@
             // ==================================================
             // 🌟 核心：手機版品牌履帶左右滑動 ─ 智慧亮燈點點監聽器
             // ==================================================
-            const brandSlider = document.getElementById('brandSlider');
+	    const brandSlider = document.getElementById('brandSlider');
             const dots = document.querySelectorAll('.dot');
 
             if (brandSlider && dots.length > 0) {
                 brandSlider.addEventListener('scroll', function() {
                     if (window.innerWidth <= 768) {
-                        const sliderWidth = brandSlider.clientWidth;
                         const scrollLeft = brandSlider.scrollLeft;
+                        const clientWidth = brandSlider.clientWidth;
+                        const scrollWidth = brandSlider.scrollWidth;
                         
-                        // 計算目前手指滑動置中的卡片索引 (Index)
-                        let activeIndex = Math.round(scrollLeft / (sliderWidth - 30)); 
+                        let activeIndex = 0;
+
+                        // 🔍 強迫症救星判斷 1：如果已經滑到最右側邊界（容許 5px 誤差值）
+                        if (scrollLeft + clientWidth >= scrollWidth - 5) {
+                            activeIndex = dots.length - 1; // 強制設定為最後一個點點
+                        } else {
+                            // 🔍 判斷 2：平時滑動時，使用精準的卡片寬度比例計算
+                            // 275px 卡片寬度 + 19.2px (1.2rem gap) = 294.2px 總間距步長
+                            const itemStep = 275 + (1.2 * 16); 
+                            activeIndex = Math.round(scrollLeft / itemStep);
+                        }
                         
-                        // 安全邊界限縮
+                        // 安全邊界防禦限縮
                         if (activeIndex < 0) activeIndex = 0;
                         if (activeIndex >= dots.length) activeIndex = dots.length - 1;
                         
-                        // 絲滑移除舊燈、為新點點注入 active 樣式
+                        // 絲滑切換點點樣式
                         dots.forEach((dot, idx) => {
                             if (idx === activeIndex) {
                                 dot.classList.add('dot-active');
