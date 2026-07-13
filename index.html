@@ -1,9 +1,9 @@
 <!-- 
 ==================================================
   Brand Me - Official Website Base Engine
-  Version: 3.4.0-Refined (大器 Logo 物理放大與光暈優化版)
+  Version: 3.5.0-Refined (iOS 智慧連動進度點點版)
   Last Updated: 2026-07-13
-  Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography + Expanded Logo Palette
+  Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography + Scroll Snap Pagination
 ==================================================
 -->
 <!DOCTYPE html>
@@ -11,12 +11,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Version: 3.4.0-Refined -->
+    <!-- Version: 3.5.0-Refined -->
     <title>Brand Me | 全方位個人升級孵化器</title>
     <style>
  /* ==================================================
       Brand Me - Official Website Base Engine
-      Version: 3.4.0-Refined (大器 Logo 物理放大與光暈優化版)
+      Version: 3.5.0-Refined
       Architecture: Absolute Apple Navbar + Cinematic Whitespace + Editorial Typography
     ================================================== */
 
@@ -241,7 +241,7 @@
 
     .hero-subtitle {
         font-size: 0.75rem;
-        letter-spacing: 8px; /* 大幅拉開字距 */
+        letter-spacing: 8px; 
         text-transform: uppercase;
         color: #a1a1a6;
         font-weight: 600;
@@ -249,28 +249,27 @@
     }
 
     .hero-title {
-        font-size: 4.8rem; /* 放大標題 */
+        font-size: 4.8rem; 
         font-weight: 700;
         letter-spacing: -1px;
         line-height: 1.25;
         margin-bottom: 2.5rem;
         max-width: 1000px;
         color: #1c1c1e;
-        /* 引入高端雜誌襯線體 */
         font-family: "Times New Roman", "Songti TC", "Noto Serif TC", serif;
     }
 
     .hero-description {
-        font-size: 0.95rem; /* 縮小內文，形成強烈對比 */
+        font-size: 0.95rem; 
         color: #636366;
         max-width: 600px;
-        line-height: 2; /* 充滿空氣感的行高 */
+        line-height: 2; 
         letter-spacing: 0.5px;
     }
 
     /* 最新消息區塊 */
     .news-section {
-        padding: 10rem 4rem 4rem 4rem; /* 增加天地留白 */
+        padding: 10rem 4rem 4rem 4rem; 
         max-width: 1200px;
         margin: 0 auto;
         background: transparent;
@@ -322,7 +321,6 @@
         flex-grow: 1;
     }
 
-    /* 特點一：收斂色彩，統一改為洗鍊中性色 */
     .news-tag {
         font-size: 0.7rem;
         letter-spacing: 2px;
@@ -376,7 +374,7 @@
 
     /* 旗下子品牌純 Logo 區塊 */
     .grid-section {
-        padding: 10rem 4rem 6rem 4rem; /* 增加天地留白 */
+        padding: 10rem 4rem 6rem 4rem; 
         max-width: 1200px;
         margin: 0 auto;
         background: transparent;
@@ -400,11 +398,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 2rem; /* 增加間距配合放大後的尺寸 */
+        gap: 2rem; 
         width: 100%;
     }
 
-    /* 🌟 融合提案一：放大卡片物理尺寸（從 240x180 升級至 300x200） */
     .brand-card {
         flex: 1;
         max-width: 300px; 
@@ -433,15 +430,14 @@
     .card-light    { --glow-color: rgba(184, 203, 54, 0.35); }  
     .card-wave     { --glow-color: rgba(0, 77, 124, 0.3); }   
 
-    /* 🌟 融合提案三：同步擴大後台電影感光暈範疇，不被大 Logo 遮擋 */
     .brand-card::before {
         content: '';
         position: absolute;
-        width: 220px;       /* 從 160px 擴大至 220px */
-        height: 220px;      /* 從 160px 擴大至 220px */
+        width: 220px;       
+        height: 220px;      
         border-radius: 50%;
         background: var(--glow-color);
-        filter: blur(55px); /* 從 45px 調至 55px，發光邊緣更溫潤迷濛 */
+        filter: blur(55px); 
         z-index: -1;
         opacity: 0;
         transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -451,7 +447,6 @@
         opacity: 1;
     }
 
-    /* 🌟 融合提案一：解鎖 95% 限制，讓去背圖片 100% 飽滿展現 */
     .brand-card img {
         max-width: 100%;
         max-height: 100%;
@@ -463,6 +458,11 @@
     .brand-card:hover img {
         filter: opacity(1) brightness(1.03);
         transform: scale(1.08);
+    }
+
+    /* 🌟 電腦端隱藏手機專用分頁點點點 */
+    .slider-pagination-dots {
+        display: none;
     }
 
     /* 彈出式商務諮詢表單 */
@@ -688,12 +688,14 @@
         .nav-container { padding: 0 2rem; }
         .hero-title { font-size: 3.2rem; }
         .brand-container-layout { gap: 1rem; }
-        .brand-card { height: 160px; } /* 平板等比例調整 */
+        .brand-card { height: 160px; } 
         .footer-container { padding: 0 2rem; }
         .modal-left-panel, .modal-right-panel { padding: 2.5rem; }
     }
 
-    /* 手機版 (Mobile-First) 高奢質感精準重隔斷點 */
+    /* ==================================================
+      📱 手機版 (Mobile-First) 高奢質感精準重隔斷點 
+    ================================================== */
     @media (max-width: 768px) {
         nav { padding: 1.5rem 0; }
         .nav-container { padding: 0 1.5rem; }
@@ -721,31 +723,32 @@
         .news-date { width: auto; font-size: 0.8rem; font-weight: 600; }
         .news-item-title { font-size: 1.15rem; line-height: 1.4; }
 
-        .grid-section { padding: 5rem 0rem 3rem 0rem; }
-        .section-header { padding: 0 1.5rem; margin-bottom: 2.5rem; }
+        /* 旗下品牌履帶區塊：手機端橫向拓寬 */
+        .grid-section { padding: 5rem 0rem 2rem 0rem; }
+        .section-header { padding: 0 1.5rem; margin-bottom: 2rem; }
         
-        /* 手機橫向履帶 */
+        /* 🌟 核心修正：調整 Padding 與寬度限制，完美產生「右側微露」的 Peek-a-boo 導引效果 */
         .brand-container-layout {
             display: flex;
             flex-direction: row; 
             justify-content: flex-start;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
             width: 100%;
             overflow-x: auto; 
             scroll-snap-type: x mandatory; 
-            padding: 1rem 1.5rem 2.5rem 1.5rem; 
+            padding: 1rem 1.5rem 1.5rem 1.5rem; /* 微調底部留白 */
             scrollbar-width: none; 
         }
         .brand-container-layout::-webkit-scrollbar { display: none; }
 
-        /* 🌟 融合提案一：手機履帶同步放大（寬度鎖定 290px、高度 160px，極致吸睛） */
+        /* 🌟 手機履帶單張卡片：調整寬度為 275px，確保能在 iPhone 螢幕右側微露下一個商標 */
         .brand-card {
             width: 100%;
-            max-width: 290px; 
-            flex: 0 0 290px; 
+            max-width: 275px; 
+            flex: 0 0 275px; 
             height: 160px; 
-            background: transparent; /* 保持俐落去背融入背景 */
+            background: transparent; 
             border-radius: 0px;
             box-shadow: none;
             border: none;
@@ -755,6 +758,33 @@
         }
         .brand-card img { max-height: 100%; max-width: 100%; } 
         .brand-card::before { width: 180px; height: 180px; filter: blur(45px); opacity: 0.3; } 
+
+        /* 🌟 提案二加入：手機專屬進度分頁點點點容器 */
+        .slider-pagination-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 單個克制、極簡的進度點點 */
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.1); /* 未選中時淡灰色 */
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 當前聚焦亮起的點點 */
+        .dot.dot-active {
+            width: 16px; /* 溫潤拉長 */
+            border-radius: 4px;
+            background-color: #1c1c1e; /* 高端石墨深灰 */
+        }
 
         .footer-container { 
             padding: 0 1.5rem; 
@@ -940,7 +970,7 @@
         </p>
     </section>
 
-    <!-- 最新消息專屬區塊（手機版自動啟動 iOS 薄霧微透卡片） -->
+    <!-- 最新消息專屬區塊 -->
     <section class="news-section" id="news">
         <div class="news-header">
             <h2>最新消息</h2>
@@ -976,17 +1006,28 @@
         </div>
     </section>
 
-    <!-- 旗下子品牌區塊（大 Logo 物理放大 + 3D 智慧磁吸流暢履帶） -->
+    <!-- 旗下子品牌區塊（智慧 Pagination 連動履帶版） -->
     <section class="grid-section" id="brands">
         <div class="section-header">
             <h2>旗下核心子品牌</h2>
         </div>
-        <div class="brand-container-layout">
+        
+        <!-- 核心滾動視窗 -->
+        <div class="brand-container-layout" id="brandSlider">
             <a href="beyond-me.html" class="brand-card card-beyond"><img src="logo-beyond.png" alt="複利職人所 Beyond me"></a>
             <a href="eclore-lab.html" class="brand-card card-eclore"><img src="logo-eclore.png" alt="Éclore Lab"></a>
             <a href="light-me.html" class="brand-card card-light"><img src="logo-light.png" alt="Light Me"></a>
             <a href="imatters.html" class="brand-card card-imatters"><img src="logo-imatters.png" alt="iMatters 職引力"></a>
             <a href="wavemaker.html" class="brand-card card-wave"><img src="logo-wave.png" alt="Wavemaker 職場造浪者"></a>
+        </div>
+
+        <!-- 🌟 手機專屬：5 大核心品牌 iOS 進度指示小圓點 -->
+        <div class="slider-pagination-dots">
+            <div class="dot dot-active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
     </section>
 
@@ -1073,6 +1114,37 @@
 
             const targetSection = document.querySelector('.brand-container-layout');
             if (targetSection) { logoObserver.observe(targetSection); }
+
+            // ==================================================
+            // 🌟 核心：手機版品牌履帶左右滑動 ─ 智慧亮燈點點監聽器
+            // ==================================================
+            const brandSlider = document.getElementById('brandSlider');
+            const dots = document.querySelectorAll('.dot');
+
+            if (brandSlider && dots.length > 0) {
+                brandSlider.addEventListener('scroll', function() {
+                    if (window.innerWidth <= 768) {
+                        const sliderWidth = brandSlider.clientWidth;
+                        const scrollLeft = brandSlider.scrollLeft;
+                        
+                        // 計算目前手指滑動置中的卡片索引 (Index)
+                        let activeIndex = Math.round(scrollLeft / (sliderWidth - 30)); 
+                        
+                        // 安全邊界限縮
+                        if (activeIndex < 0) activeIndex = 0;
+                        if (activeIndex >= dots.length) activeIndex = dots.length - 1;
+                        
+                        // 絲滑移除舊燈、為新點點注入 active 樣式
+                        dots.forEach((dot, idx) => {
+                            if (idx === activeIndex) {
+                                dot.classList.add('dot-active');
+                            } else {
+                                dot.classList.remove('dot-active');
+                            }
+                        });
+                    }
+                });
+            }
         });
     </script>
 </body>
